@@ -29,7 +29,7 @@ namespace UnityBaseScripts
 
         #region UNITY MESSAGES 
 
-        public void Awake()
+        public virtual void Awake()
         {
             if (Instance == null)
                 Instance = this;
