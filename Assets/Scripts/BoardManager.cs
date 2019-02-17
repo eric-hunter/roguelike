@@ -5,7 +5,7 @@ using UnityEngine;
 //USE UNITY RANDOM CLASS INSTEAD OF SYSTEM
 using Random = UnityEngine.Random;
 
-public class NewBehaviourScript : MonoBehaviour
+public class BoardManager : MonoBehaviour
 {
 
     [Serializable]

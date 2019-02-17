@@ -1,10 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Completed;
-using UnityEngine;
-using UnityScripts;
+﻿using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
 
     #region PUBLIC PROPERTIES
@@ -36,9 +32,13 @@ public class NewBehaviourScript : MonoBehaviour
 
     #endregion
 
+    #region UNITY HOOKS
+
     // Update is called once per frame
     void Update()
     {
         
     }
+
+    #endregion
 }
