@@ -1,6 +1,6 @@
-﻿using UnityEngine;
+﻿using UnityBaseScripts;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Manager
 {
 
     #region PUBLIC PROPERTIES
@@ -15,7 +15,6 @@ public class GameManager : MonoBehaviour
     private int level = 3;
 
     #endregion
-
 
     #region PRIVATE METHODS
 

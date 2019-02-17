@@ -7,7 +7,8 @@ using Random = UnityEngine.Random;
 
 public class BoardManager : MonoBehaviour
 {
-
+    #region CLASSES
+    //SERIALIZE THIS BECAUSE OF THE SUB-PROPERTY NATURE TO DISPLAY IN UNITY GUI.
     [Serializable]
     public class RandomCount
     {
@@ -21,6 +22,7 @@ public class BoardManager : MonoBehaviour
         }
     }
 
+    #endregion
 
     #region PUBLIC PROPERTIES
 
