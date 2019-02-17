@@ -25,8 +25,8 @@ public class BoardManager : MonoBehaviour
     #region PUBLIC PROPERTIES
 
     //GAME BOARD SIZE
-    public readonly int Columns = 8;
-    public readonly int Rows = 8;
+    public int Columns = 8;
+    public int Rows = 8;
 
     //RANDOM ITEM COUNTS
     public RandomCount WallCount = new RandomCount(5, 9);
@@ -34,11 +34,11 @@ public class BoardManager : MonoBehaviour
 
     //GAME OBJECTS
     public GameObject ExitSign;
-    public GameObject[] FloorTiles { get; set; }
-    public GameObject[] WallTiles { get; set; }
-    public GameObject[] FoodTiles { get; set; }
-    public GameObject[] EnemyTiles { get; set; }
-    public GameObject[] OuterWallTiles { get; set; }
+    public GameObject[] FloorTiles;
+    public GameObject[] WallTiles;
+    public GameObject[] FoodTiles;
+    public GameObject[] EnemyTiles;
+    public GameObject[] OuterWallTiles;
 
     #endregion
 
