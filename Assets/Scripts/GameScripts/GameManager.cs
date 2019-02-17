@@ -1,11 +1,25 @@
 ﻿using UnityBaseScripts;
+using UnityEngine;
 
 public class GameManager : Manager
 {
-
     #region PUBLIC PROPERTIES
 
-    public BoardManager BoardScript { get; set; }
+    public BoardManager BoardScript;
+
+    public int PlayerFoodPoints;
+
+    [HideInInspector] 
+    public bool PlayersTurn = true;
+
+    #endregion
+
+    #region PUBLIC METHODS
+
+    public void GameOver()
+    {
+        enabled = false;
+    }
 
     #endregion
 
@@ -16,27 +30,22 @@ public class GameManager : Manager
 
     #endregion
 
-    #region PRIVATE METHODS
+    #region MESSAGES
 
-    private void Awake()
+    public override void Awake()
     {
+        base.Awake();
         BoardScript = GetComponent<BoardManager>();
         InitGame();
     }
 
+    #endregion
+
+    #region PRIVATE METHODS
+
     private void InitGame()
     {
         BoardScript.SetupScene(level);
-    }
-
-    #endregion
-
-    #region UNITY HOOKS
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     #endregion
