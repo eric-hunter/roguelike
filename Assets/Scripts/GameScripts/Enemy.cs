@@ -58,6 +58,8 @@ public class Enemy : MovingObject
     {
         Player playerThatWasHit = component as Player;
 
+        animator.SetTrigger("enemyAttack");
+
         playerThatWasHit.DamagePlayer(DamageDealtToPlayer);
     }
 
@@ -68,8 +70,13 @@ public class Enemy : MovingObject
 
     protected override void Start()
     {
+        //register self to the game manager
+        GameManager.Instance.AddEnemy(this);
+
+        //get access to animation control
         animator = GetComponent<Animator>();
 
+        //identify the Player game object.
         target = GameObject.FindGameObjectWithTag("Player").transform;
 
         base.Start();
