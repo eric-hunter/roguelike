@@ -1,7 +1,7 @@
 ﻿using UnityBaseScripts;
 using UnityEngine;
 
-public class GameManager : Manager
+public class GameManager : Manager<GameManager>
 {
     #region PUBLIC PROPERTIES
 

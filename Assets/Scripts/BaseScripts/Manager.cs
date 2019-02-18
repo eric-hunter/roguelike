@@ -18,21 +18,17 @@
 
 namespace UnityBaseScripts
 {
-    public class Manager : MonoBehaviour
+    public abstract class Manager<T> : MonoBehaviour
+        where T : Manager<T>, new()
     {
-        #region PRIVATE PROPERTIES
-
-        // Check to see if we're about to be destroyed.
-        public static Manager Instance { get; set; }
-
-        #endregion
+        public static T Instance { get; private set; }
 
         #region UNITY MESSAGES 
 
         public virtual void Awake()
         {
             if (Instance == null)
-                Instance = this;
+                Instance = (T)this;
             //TODO: Still unsure how this would ever get executed.
             else if (Instance != this)
                 Destroy(gameObject);
