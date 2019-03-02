@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityBaseScripts;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : Manager<GameManager>
 {
@@ -9,8 +10,9 @@ public class GameManager : Manager<GameManager>
 
     public BoardManager Board;
 
+    public float LevelStartDelay = 2f;
     //turn time.
-    public float TurnDelay = .1f;
+    public float TurnDelay = 2f;
     //initial player food points
     //somehow if I don't set this to readonly, the value gets set to zero.
     public readonly int PlayerFoodPoints = 100;
@@ -21,10 +23,13 @@ public class GameManager : Manager<GameManager>
 
     #region PRIVATE VARIABLES
 
+    private Text levelText;
+    private GameObject levelImage;
     private List<Enemy> enemies;
     //using 3 bc that's when enemies appear.
-    private int level = 3;
+    private int level = 1;
     private bool enemiesAreMoving;
+    private bool doingSetup;
 
     #endregion
 
@@ -37,6 +42,9 @@ public class GameManager : Manager<GameManager>
 
     public void GameOver()
     {
+        levelText.text = "After " + level + " days, starved.";
+        levelImage.SetActive(true);
+
         enabled = false;
     }
 
@@ -51,6 +59,13 @@ public class GameManager : Manager<GameManager>
             return;
         //OTHERWISE, START ENEMY MOVEMENT COROUTINE.
         StartCoroutine(MoveEnemies());
+    }
+
+    private void OnLevelWasLoaded(int level)
+    {
+        level++;
+
+        InitGame();
     }
 
     #endregion
@@ -72,9 +87,25 @@ public class GameManager : Manager<GameManager>
 
     private void InitGame()
     {
+        doingSetup = true;
+
+        levelImage = GameObject.Find("LevelImage");
+        levelText = GameObject.Find("LevelText").GetComponent<Text>();
+
+        //PRESENT USER WITH LEVEL INFO
+        levelText.text = "Day " + level;
+        levelImage.SetActive(true);
+        Invoke("HideLevelImage", LevelStartDelay);
+
         //clear out enemies from previous level.
         enemies.Clear();
         Board.SetupScene(level);
+    }
+
+    private void HideLevelImage() 
+    {
+        levelImage.SetActive(false);
+        doingSetup = false;
     }
 
     //ENEMY MOVEMENT COROUTINE
@@ -98,6 +129,7 @@ public class GameManager : Manager<GameManager>
         PlayersTurn = true;
         enemiesAreMoving = false;
     }
+
 
     #endregion
 }

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MovingObject
 {
@@ -8,6 +9,7 @@ public class Player : MovingObject
     public int GainedPointsFromFood = 10;
     public int GainedPointsFromSoda = 20;
     public float RestartLevelDelay = 1f;
+    public Text foodText;
 
     #endregion
 
@@ -15,6 +17,8 @@ public class Player : MovingObject
 
     private Animator animator;
     private int foodLevel;
+    private readonly string FOOD_TEXT = "Food: {0:d}";
+    private readonly string FOOD_CHANGE_TEXT = "Food: {0:d} ({1:d} pts)";
 
     #endregion
 
@@ -24,6 +28,7 @@ public class Player : MovingObject
     {
         animator.SetTrigger("playerHit");
         foodLevel -= points;
+        foodText.text = string.Format(FOOD_CHANGE_TEXT, foodLevel, points);
         CheckFoodLevel();
     }
 
@@ -34,6 +39,7 @@ public class Player : MovingObject
     protected override void AttemptMove<T>(int xDir, int yDir)
     {
         foodLevel--;
+        foodText.text = string.Format(FOOD_CHANGE_TEXT, foodLevel, -1);
 
         base.AttemptMove<T>(xDir, yDir);
 
@@ -69,6 +75,7 @@ public class Player : MovingObject
         animator = GetComponent<Animator>();
 
         foodLevel = GameManager.Instance.PlayerFoodPoints;
+        foodText.text = string.Format(FOOD_TEXT, foodLevel);
 
         base.Start();
     }
@@ -108,12 +115,14 @@ public class Player : MovingObject
         else if (other.tag.Equals("Food"))
         {
             foodLevel += GainedPointsFromFood;
+            foodText.text = string.Format(FOOD_CHANGE_TEXT, foodLevel, GainedPointsFromFood);
             other.gameObject.SetActive(false);
         }
         else if (other.tag.Equals("Soda"))
         {
             foodLevel += GainedPointsFromSoda;
-            other.gameObject.SetActive(false);
+            foodText.text = string.Format(FOOD_CHANGE_TEXT, foodLevel, GainedPointsFromSoda);
+            other.gameObject.SetActive(false); 
         }
     }
 
